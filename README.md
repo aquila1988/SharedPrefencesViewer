@@ -1,0 +1,2 @@
+# SharedPrefenceViewer
+一个SharedPrefences的查看调试工具类

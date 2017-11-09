@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<TextView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/adapter_list_sp_name_TextView"
-    android:paddingLeft="@dimen/dimen_size_15"
-    android:paddingRight="@dimen/dimen_size_15"
-
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:textColor="@color/color_373737"
-    android:textSize="@dimen/text_size_18"
-    android:text="name.xml"
-    android:gravity="center_vertical"
-    android:maxLines="2"
-    android:ellipsize="end"
-    android:background="@drawable/selector_item_bg"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/transparent"
 
-    />
+>
+    <TextView
+        android:id="@+id/adapter_list_sp_name_TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="60dp"
+        android:minWidth="480dp"
+        android:paddingLeft="@dimen/dimen_size_15"
+        android:paddingRight="@dimen/dimen_size_15"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_373737"
+        android:textSize="@dimen/text_size_18"
+        android:text=""
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:background="@drawable/selector_item_bg"
+
+        android:foreground="?android:attr/selectableItemBackground"
+        />
+
+
+</LinearLayout>
+

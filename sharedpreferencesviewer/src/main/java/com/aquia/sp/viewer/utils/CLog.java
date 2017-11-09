@@ -1,8 +1,6 @@
 package com.aquia.sp.viewer.utils;
 
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -11,56 +9,50 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.io.StringWriter;
 
-/**
- *reated by yulong_wang on 2017/10/23.
- * 这个是关于本地调试打log信息的工具类，我们所有的debug都要通过这个来进行调试
- *
- */
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
 public final class CLog {
 
-    public static final String LINE_SEPARATOR = System.getProperty("line.separator");
-    public static final String NULL_TIPS = "Log with null object";
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    private static final String NULL_TIPS = "Log with null object";
 
-    private static final String DEFAULT_MESSAGE = "execute";
+    private static final String DEFAULT_MESSAGE = "";
     private static final String PARAM = "Param";
     private static final String NULL = "null";
-    private static final String TAG_DEFAULT = "CLog";
+    private static final String TAG_DEFAULT = "CLog_";
     private static final String SUFFIX = ".java";
 
-    public static final int JSON_INDENT = 4;
+    private static final int JSON_INDENT = 4;
 
-    public static final int V = 0x1;
-    public static final int D = 0x2;
-    public static final int I = 0x3;
-    public static final int W = 0x4;
-    public static final int E = 0x5;
-    public static final int A = 0x6;
+    private static final int V = 0x1;
+    private static final int D = 0x2;
+    private static final int I = 0x3;
+    private static final int W = 0x4;
+    private static final int E = 0x5;
+    private static final int A = 0x6;
 
     private static final int JSON = 0x7;
-
-    private static final int SYSO = 0x8;
+    private static final int XML = 0x8;
+    private static final int SYSO = 0x9;
 
     private static final int STACK_TRACE_INDEX_5 = 5;
     private static final int STACK_TRACE_INDEX_4 = 4;
     private static final int MAX_LENGTH = 4000;
 
-    private static String mGlobalTag;
-    private static boolean mIsGlobalTagEmpty = true;
     private static boolean IS_SHOW_LOG = true;
-
-
 
     public static void init(boolean isShowLog) {
         IS_SHOW_LOG = isShowLog;
     }
 
-    public static void init(boolean isShowLog, String tag) {
-        IS_SHOW_LOG = isShowLog;
-        mGlobalTag = tag;
-        mIsGlobalTagEmpty = TextUtils.isEmpty(mGlobalTag);
-    }
 
     public static void v() {
         printLog(V, null, DEFAULT_MESSAGE);
@@ -142,10 +134,17 @@ public final class CLog {
         printLog(JSON, tag, jsonFormat);
     }
 
-    public static void syso(String text) {
-        printLog(SYSO, null, text);
+    public static void xml(String xml) {
+        printLog(XML, null, xml);
     }
 
+    public static void xml(String tag, String xml) {
+        printLog(XML, tag, xml);
+    }
+
+    public static void syso(String text) {
+        printLog(SYSO, TAG_DEFAULT, text);
+    }
 
     public static void debug() {
         printDebug(null, DEFAULT_MESSAGE);
@@ -180,7 +179,7 @@ public final class CLog {
         StringBuilder sb = new StringBuilder();
         sb.append("\n");
         for (String trace : traceString) {
-            if (trace.contains("at com.socks.library.KLog")) {
+            if (trace.contains("at com.socks.library.CLog")) {
                 continue;
             }
             sb.append(trace).append("\n");
@@ -216,6 +215,9 @@ public final class CLog {
             case JSON:
                 printJson(tag, msg, headString);
                 break;
+            case XML:
+                printXml(tag, msg, headString);
+                break;
         }
 
     }
@@ -230,11 +232,9 @@ public final class CLog {
 
 
 
-
     private static String[] wrapperContent(int stackTraceIndex, String tagStr, Object... objects) {
 
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-
         StackTraceElement targetElement = stackTrace[stackTraceIndex];
         String className = targetElement.getClassName();
         String[] classNameInfo = className.split("\\.");
@@ -253,27 +253,14 @@ public final class CLog {
             lineNumber = 0;
         }
 
-        String tag = (tagStr == null ? className : tagStr);
-
-        if (mIsGlobalTagEmpty && TextUtils.isEmpty(tag)) {
-            tag = TAG_DEFAULT;
-        } else if (!mIsGlobalTagEmpty) {
-            tag = mGlobalTag;
-        }
-
-        //给tag加上default标记前缀，便于在logcat筛选查找
-        if (!tag.startsWith(TAG_DEFAULT)){
-            tag = TAG_DEFAULT +"_" + tag;
-        }
+        String tag = (tagStr == null ? TAG_DEFAULT + className : TAG_DEFAULT + tagStr);
 
         String msg = (objects == null) ? NULL_TIPS : getObjectsString(objects);
-        String headString = "[(" + className + ":" + lineNumber + ")#" + methodName +"()] ";
-
+        String headString = "【(" + className + ":" + lineNumber + ")#" + methodName + "】 ";
         return new String[]{tag, msg, headString};
     }
 
     private static String getObjectsString(Object... objects) {
-
         if (objects.length > 1) {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("\n");
@@ -292,54 +279,13 @@ public final class CLog {
         }
     }
 
-    public static boolean isEmpty(String line) {
-        return TextUtils.isEmpty(line) || line.equals("\n") || line.equals("\t") || TextUtils.isEmpty(line.trim());
-    }
-
-    public static void printLine(String tag, boolean isTop) {
-        if (isTop) {
-            Log.d(tag, "╔═══════════════════════════════════════════════════════════════════════════════════════");
-        } else {
-            Log.d(tag, "╚═══════════════════════════════════════════════════════════════════════════════════════");
-        }
-    }
-
-
-    public static void printJson(String tag, String msg, String headString) {
-
-        String message;
-
-        try {
-            if (msg.startsWith("{")) {
-                JSONObject jsonObject = new JSONObject(msg);
-                message = jsonObject.toString(JSON_INDENT);
-            } else if (msg.startsWith("[")) {
-                JSONArray jsonArray = new JSONArray(msg);
-                message = jsonArray.toString(JSON_INDENT);
-            } else {
-                message = msg;
-            }
-        } catch (JSONException e) {
-            message = msg;
-        }
-
-        printLine(tag, true);
-        message = headString + LINE_SEPARATOR + message;
-        String[] lines = message.split(LINE_SEPARATOR);
-        for (String line : lines) {
-            Log.d(tag, "║ " + line);
-        }
-        printLine(tag, false);
-    }
-
-    public static void printDefault(int type, String tag, String msg) {
+    private static void printDefault(int type, String tag, String msg) {
         if (!IS_SHOW_LOG){
             return;
         }
         int index = 0;
         int length = msg.length();
         int countOfSub = length / MAX_LENGTH;
-
         if (countOfSub > 0) {
             for (int i = 0; i < countOfSub; i++) {
                 String sub = msg.substring(index, index + MAX_LENGTH);
@@ -352,7 +298,6 @@ public final class CLog {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.FROYO)
     private static void printSub(int type, String tag, String sub) {
         switch (type) {
             case V:
@@ -379,4 +324,95 @@ public final class CLog {
         }
     }
 
+
+    public static void printJson(String tag, String msg, String headString) {
+        if (!IS_SHOW_LOG){
+            return;
+        }
+
+        String message;
+        try {
+            if (msg.startsWith("{")) {
+                JSONObject jsonObject = new JSONObject(msg);
+                message = jsonObject.toString(JSON_INDENT);
+            } else if (msg.startsWith("[")) {
+                JSONArray jsonArray = new JSONArray(msg);
+                message = jsonArray.toString(JSON_INDENT);
+            } else {
+                message = msg;
+            }
+        } catch (JSONException e) {
+            message = msg;
+        }
+        StringBuffer sb = new StringBuffer();
+        sb.append(headString);
+        sb.append("\n");
+        sb.append(getLine(true));
+        String[] lines = message.split(LINE_SEPARATOR);
+        for (String line : lines) {
+            sb.append("\n");
+            sb.append("║" + line);
+        }
+        sb.append("\n");
+        sb.append(getLine(false));
+        Log.d(tag, sb.toString());
+
+    }
+
+    public static void printXml(String tag, String xml, String headString) {
+        if (!IS_SHOW_LOG){
+            return;
+        }
+
+        if (xml != null) {
+            xml = formatXML(xml);
+            xml = headString + "\n" + xml;
+        } else {
+            xml = headString + NULL_TIPS;
+        }
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(headString)
+            .append("\n")
+            .append(getLine(true));
+
+        String[] lines = xml.split(LINE_SEPARATOR);
+        for (String line : lines) {
+            if (!isEmpty(line)) {
+                sb.append("\n")
+                    .append("║ " + line);
+            }
+        }
+        sb.append(getLine(false));
+        Log.d(tag, sb.toString());
+    }
+
+    private static String formatXML(String inputXML) {
+        try {
+            Source xmlInput = new StreamSource(new StringReader(inputXML));
+            StreamResult xmlOutput = new StreamResult(new StringWriter());
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            transformer.transform(xmlInput, xmlOutput);
+            return xmlOutput.getWriter().toString().replaceFirst(">", ">\n");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return inputXML;
+        }
+    }
+
+    private static boolean isEmpty(String line) {
+        return TextUtils.isEmpty(line) || line.equals("\n") || line.equals("\t") || TextUtils.isEmpty(line.trim());
+    }
+
+    private static String getLine(boolean isTop){
+        if (isTop){
+            return "╔═══════════════════════════════════════════════════════════════════════════════════════";
+        } else {
+            return "╚═══════════════════════════════════════════════════════════════════════════════════════";
+
+        }
+
+    }
 }

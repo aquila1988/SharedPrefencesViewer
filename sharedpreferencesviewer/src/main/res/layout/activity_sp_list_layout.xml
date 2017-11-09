@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f5f5f5"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white"
+        >
+
+        <ImageView
+            android:id="@+id/activity_sp_list_back_ImageView"
+            android:layout_width="@dimen/title_height"
+            android:layout_height="@dimen/dimen_dp_50"
+            android:src="@drawable/back"
+            android:scaleType="center"
+            />
+
+        <TextView
+            android:id="@+id/activity_sp_list_title_name_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_dp_50"
+            android:layout_marginRight="@dimen/dimen_dp_50"
+            android:textColor="@color/color_373737"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_18"
+            android:text="文件列表"
+            />
+    </RelativeLayout>
+
+    <com.aquia.sp.viewer.utils.CustomRecyclerView
+        android:id="@+id/activity_sp_list_content_RecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        app:layout_style="vertical"
+        />
+
+
+
+</LinearLayout>

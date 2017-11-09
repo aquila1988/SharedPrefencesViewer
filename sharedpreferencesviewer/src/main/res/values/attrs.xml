@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomRecyclerView">
+        <attr name="spanCount" format="integer"></attr>
+        <attr name="divide_line_style" format="enum">
+            <enum name="none" value="0"></enum>
+            <enum name="horizontal" value="1"></enum>
+            <enum name="vertical" value="2"></enum>
+        </attr>
+        <attr name="layout_style" format="enum">
+            <enum name="horizontal" value="0"></enum>
+            <enum name="vertical" value="1"></enum>
+            <enum name="grid_vertical" value="2"></enum>
+            <enum name="grid_horizontal" value="3"></enum>
+            <enum name="other" value="9"></enum>
+        </attr>
+    </declare-styleable>
+
+
+</resources>

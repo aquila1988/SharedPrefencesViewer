@@ -2,8 +2,6 @@ package com.aquila.shared.preferences;
 
 import android.app.Application;
 
-import com.aquia.sp.viewer.SPApp;
-
 /**
  * Created by yulong_wang on 2017/11/9 17:38.
  */
@@ -20,7 +18,6 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
-        SPApp.init(application);
     }
 
 

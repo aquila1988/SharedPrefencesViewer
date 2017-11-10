@@ -16,8 +16,9 @@
             android:id="@+id/activity_sp_list_back_ImageView"
             android:layout_width="@dimen/title_height"
             android:layout_height="@dimen/dimen_dp_50"
-            android:src="@drawable/back"
+            android:src="@mipmap/back_normal"
             android:scaleType="center"
+            android:background="@drawable/selector_item_bg"
             />
 
         <TextView
@@ -32,14 +33,19 @@
             android:text="文件列表"
             />
     </RelativeLayout>
-
-    <com.aquia.sp.viewer.utils.CustomRecyclerView
-        android:id="@+id/activity_sp_list_content_RecyclerView"
+    <com.aquia.sp.viewer.utils.PullDownView
+        android:id="@+id/activity_sp_list_PullDownView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:divide_line_style="horizontal"
-        app:layout_style="vertical"
-        />
+        android:layout_height="match_parent">
+        <com.aquia.sp.viewer.utils.CustomRecyclerView
+            android:id="@+id/activity_sp_list_content_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:divide_line_style="horizontal"
+            app:layout_style="vertical"
+            />
+
+    </com.aquia.sp.viewer.utils.PullDownView>
 
 
 

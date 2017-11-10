@@ -3,6 +3,8 @@ package com.aquia.sp.viewer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aquia.sp.viewer.utils.CustomRecyclerView;
+import com.aquia.sp.viewer.utils.PullDownView;
 
 import java.io.File;
 
@@ -23,7 +26,7 @@ import java.io.File;
 public class SPFileListActivity extends BaseActivity implements OnClickListener{
     private ImageView backImageView;
     private CustomRecyclerView customRecyclerView;
-
+    private PullDownView pullDownView;
     private FileListAdapter adapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,12 +34,26 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
         setContentView(R.layout.activity_sp_list_layout);
         backImageView = findViewById(R.id.activity_sp_list_back_ImageView);
         customRecyclerView = findViewById(R.id.activity_sp_list_content_RecyclerView);
+        pullDownView = findViewById(R.id.activity_sp_list_PullDownView);
+        pullDownView.setTopViewInitialize(true);
+        pullDownView.setIsCloseTopAllowRefersh(true);
+        pullDownView.setHasBottomViewWithoutscroll(false);
+
         backImageView.setOnClickListener(this);
         adapter = new FileListAdapter(this);
         customRecyclerView.setAdapter(adapter);
 
         adapter.setData(getSPFileList());
 
+        new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+
+                pullDownView.startTopScroll();
+
+            }
+        }.sendEmptyMessageDelayed(1, 1000);
     }
 
 

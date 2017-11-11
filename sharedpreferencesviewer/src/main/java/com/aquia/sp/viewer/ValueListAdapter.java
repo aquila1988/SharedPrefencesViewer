@@ -74,14 +74,23 @@ public class ValueListAdapter extends RecyclerView.Adapter<ValueListAdapter.SPVa
 
     }
 
+    private SPDetailDialog spDetailDialog;
     private void showContentDetailDialog(String key, Object obj){
-        SPDetailDialog spDetailDialog = new SPDetailDialog(activity);
+        if (spDetailDialog == null){
+            spDetailDialog = new SPDetailDialog(activity, sp);
+            spDetailDialog.setOnDataUpdateListener(onDataUpdateListener);
+        }
         spDetailDialog.show();
         spDetailDialog.initData(key, obj);
-
     }
 
 
+    OnDataUpdateListener onDataUpdateListener = new OnDataUpdateListener() {
+        @Override
+        public void onDataUIUpdate() {
+            updateUI();
+        }
+    };
 
     private void showDeleteFileDialog(final String key) {
         AlertDialog alertDialog = new AlertDialog.Builder(activity)

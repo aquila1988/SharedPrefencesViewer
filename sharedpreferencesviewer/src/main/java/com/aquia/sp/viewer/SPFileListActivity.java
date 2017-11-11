@@ -48,9 +48,9 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
         return null;
     }
 
-    FileListAdapter.OnItemDeleteListener onItemDeleteListener = new FileListAdapter.OnItemDeleteListener() {
+    OnDataUpdateListener onItemDeleteListener = new OnDataUpdateListener() {
         @Override
-        public void onItemDelete() {
+        public void onDataUIUpdate() {
             updateData();
         }
     };

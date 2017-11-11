@@ -20,7 +20,7 @@ public class SPValueListActivity extends BaseActivity implements View.OnClickLis
     private TextView titleTextView;
     private CustomRecyclerView customRecyclerView;
     private ValueListAdapter valueListAdapter;
-
+    private SharedPreferences sp;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +37,7 @@ public class SPValueListActivity extends BaseActivity implements View.OnClickLis
         String fileName = getIntent().getStringExtra(EXTRA_sp_name);
         titleTextView.setText(fileName);
 
-        SharedPreferences sp = getSharedPreferences(fileName, MODE_PRIVATE);
+        sp = getSharedPreferences(fileName, MODE_PRIVATE);
 
 
         valueListAdapter = new ValueListAdapter(this, fileName);
@@ -46,10 +46,23 @@ public class SPValueListActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void showAddParamsDialog(){
-        SPDetailDialog spDetailDialog = new SPDetailDialog(this);
+        SPDetailDialog spDetailDialog = new SPDetailDialog(this,sp);
         spDetailDialog.show();
+        spDetailDialog.setTitleText("新建键值对");
+        spDetailDialog.setIsCreate(true);
+
+        spDetailDialog.setOnDataUpdateListener(onDataUpdateListener);
     }
 
+
+    OnDataUpdateListener onDataUpdateListener = new OnDataUpdateListener() {
+        @Override
+        public void onDataUIUpdate() {
+            if (valueListAdapter != null){
+                valueListAdapter.updateUI();
+            }
+        }
+    };
 
     @Override
     public void onClick(View v) {

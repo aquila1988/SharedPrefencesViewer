@@ -65,7 +65,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.NameLi
                     public void onClick(DialogInterface dialog, int which) {
                         file.delete();
                         if (onItemDeleteListener != null){
-                            onItemDeleteListener.onItemDelete();
+                            onItemDeleteListener.onDataUIUpdate();
                         }
 
                     }
@@ -83,14 +83,10 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.NameLi
         return files.length;
     }
 
-    OnItemDeleteListener onItemDeleteListener;
+    OnDataUpdateListener onItemDeleteListener;
 
-    public void setOnItemDeleteListener(OnItemDeleteListener onItemDeleteListener) {
+    public void setOnItemDeleteListener(OnDataUpdateListener onItemDeleteListener) {
         this.onItemDeleteListener = onItemDeleteListener;
-    }
-
-    public interface OnItemDeleteListener{
-        void onItemDelete();
     }
 
     public static class NameListViewHolder extends RecyclerView.ViewHolder{

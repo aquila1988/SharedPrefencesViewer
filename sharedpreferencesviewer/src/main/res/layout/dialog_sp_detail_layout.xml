@@ -15,7 +15,7 @@
         android:layout_height="@dimen/dimen_dp_50"
         android:textColor="@color/color_373737"
         android:textSize="@dimen/text_size_16"
-        android:text="这个是标题"
+        android:text="查看键值对"
         android:gravity="center"
         />
 

@@ -33,20 +33,13 @@
             android:text="文件列表"
             />
     </RelativeLayout>
-    <com.aquia.sp.viewer.utils.PullDownView
-        android:id="@+id/activity_sp_list_PullDownView"
+
+
+    <com.aquia.sp.viewer.utils.CustomRecyclerView
+        android:id="@+id/activity_sp_list_content_RecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.aquia.sp.viewer.utils.CustomRecyclerView
-            android:id="@+id/activity_sp_list_content_RecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:divide_line_style="horizontal"
-            app:layout_style="vertical"
-            />
-
-    </com.aquia.sp.viewer.utils.PullDownView>
-
-
-
+        android:layout_height="match_parent"
+        app:divide_line_style="horizontal"
+        app:layout_style="vertical"
+        />
 </LinearLayout>

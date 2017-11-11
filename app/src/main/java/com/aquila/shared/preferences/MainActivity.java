@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         sharedPreferences.edit().putBoolean("boolean_1", true).commit();
         sharedPreferences.edit().putInt("startCount", sharedPreferences.getInt("startCount", 0) +1).commit();
-        sharedPreferences.edit().putString("text_Content", "多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死").commit();
+        sharedPreferences.edit().putString("text_Content", "多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死多撒后的卡上看撒反对哈是否会啊数据库恢复就卡死").commit();
 
         SharedPreferences sp = getSharedPreferences("file2", MODE_PRIVATE);
         sp.edit().putString("test", "我的测试文件2").commit();

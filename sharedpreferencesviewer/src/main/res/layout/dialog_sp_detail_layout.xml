@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginTop="60dp"
+    android:layout_marginBottom="100dp"
+    android:layout_marginLeft="15dp"
+    android:layout_margin="15dp"
+    android:layout_gravity="center"
+    >
+    <TextView
+        android:id="@+id/dialog_sp_title_TextView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_dp_50"
+        android:textColor="@color/color_373737"
+        android:textSize="@dimen/text_size_16"
+        android:text="这个是标题"
+        android:gravity="center"
+        />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divide_line_color"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="50dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        >
+        <Button
+            android:id="@+id/dialog_sp_ok_Button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="确定"
+            android:textSize="@dimen/text_size_16"
+            android:background="@drawable/selector_item_bg"
+            android:textColor="#108f10"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/divide_line_color"
+            />
+
+        <Button
+            android:id="@+id/dialog_sp_cancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="取消"
+            android:textColor="#d21515"
+            android:textSize="@dimen/text_size_16"
+            android:background="@drawable/selector_item_bg"
+            />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="51dp"
+        android:layout_marginTop="@dimen/dimen_dp_50">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dimen_size_10"
+            android:paddingRight="@dimen/dimen_size_10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:text="类型:"
+                    android:textColor="@color/color_373737"
+                    android:textSize="@dimen/text_size_16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dialog_sp_type_TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="Int"
+                    android:paddingLeft="@dimen/dimen_size_10"
+                    android:textColor="#b412a9"
+                    android:textSize="@dimen/text_size_18" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:text="Key值:"
+                    android:textColor="@color/color_373737"
+                    android:textSize="@dimen/text_size_16"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/dialog_sp_key_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:gravity="center_vertical"
+                    android:text="速度就卡了多久啊是"
+                    android:paddingLeft="@dimen/dimen_size_10"
+                    android:textColor="@color/color_0ebf0e"
+                    android:textSize="@dimen/text_size_16" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:text="Value值:"
+                    android:textColor="@color/color_373737"
+                    android:textSize="@dimen/text_size_16"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/dialog_sp_value_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/transparent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dimen_size_10"
+                    android:text="速度就卡了多久啊是速度就卡了多久啊是速度就卡了多久啊是速度就卡了多久啊是速度就卡了多久啊是速度就卡了多久啊是速度就卡了多久啊是速度就卡了多久啊是速度就卡了多久啊是速度就卡了多久啊是速度就卡了多久啊是"
+                    android:textColor="@color/color_2222df"
+                    android:textSize="@dimen/text_size_18" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</FrameLayout>

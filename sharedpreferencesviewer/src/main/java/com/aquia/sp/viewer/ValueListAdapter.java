@@ -16,9 +16,6 @@ import com.aquia.sp.viewer.utils.TypeConst;
 import java.util.ArrayList;
 import java.util.Map;
 
-/**
- * Created by yulong_wang on 2017/11/11 14:54.
- */
 public class ValueListAdapter extends RecyclerView.Adapter<ValueListAdapter.SPValueViewHolder> {
     private Activity activity;
     private ArrayList<String> keyList = new ArrayList<>();

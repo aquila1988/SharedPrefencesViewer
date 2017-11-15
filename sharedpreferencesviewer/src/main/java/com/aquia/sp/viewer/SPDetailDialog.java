@@ -22,10 +22,6 @@ import android.widget.Toast;
 import com.aquia.sp.viewer.utils.CustomRecyclerView;
 import com.aquia.sp.viewer.utils.TypeConst;
 
-/**
- * Created by yulong_wang on 2017/11/11 16:03.
- */
-
 public class SPDetailDialog extends Dialog {
 
     public SPDetailDialog(@NonNull Context context, SharedPreferences sharedPreferences) {
@@ -34,7 +30,6 @@ public class SPDetailDialog extends Dialog {
     }
     private SharedPreferences sharedPreferences;
     private TextView titleTextView;
-//    private TextView typeTextView;
     private CustomRecyclerView TypeRecyclerView;
 
     private EditText keyEditText;
@@ -43,10 +38,9 @@ public class SPDetailDialog extends Dialog {
     private Button okButton;
     private Button cancelButton;
 
-
     private static final int CHANGE_TYPE_KEY = 1;
     private static final int CHANGE_TYPE_TYPE = 2;
-    private String currentType = TypeConst.TYPE_STRING;
+
     private String lastType, lastKey;
     private boolean isCreate = false;
 
@@ -62,7 +56,6 @@ public class SPDetailDialog extends Dialog {
 
         typeAdapter = new TypeAdapter(getContext());
         TypeRecyclerView.setAdapter(typeAdapter);
-//        typeTextView.setText(currentType);
     }
 
     public void setTitleText(String text){
@@ -72,12 +65,10 @@ public class SPDetailDialog extends Dialog {
     private void setViewClickListeners() {
         okButton.setOnClickListener(onClickListener);
         cancelButton.setOnClickListener(onClickListener);
-//        typeTextView.setOnClickListener(onClickListener);
     }
 
     private void initializeViewFromXML() {
         titleTextView = findViewById(R.id.dialog_sp_title_TextView);
-//        typeTextView = findViewById(R.id.dialog_sp_type_TextView);
         TypeRecyclerView = findViewById(R.id.dialog_sp_type_RecyclerView);
 
         keyEditText = findViewById(R.id.dialog_sp_key_EditText);
@@ -98,7 +89,7 @@ public class SPDetailDialog extends Dialog {
                 if (!isCreate && !keyEditText.getText().toString().equals(lastKey)){
                     showKeyChangedDialog(CHANGE_TYPE_KEY);
                 }
-                else if (!isCreate &&!currentType.equals(typeAdapter.getCurrentType())){
+                else if (!isCreate &&!lastKey.equals(typeAdapter.getCurrentType())){
                     showKeyChangedDialog(CHANGE_TYPE_TYPE);
                 }else {
                     saveNewData();
@@ -112,7 +103,14 @@ public class SPDetailDialog extends Dialog {
 
     private void saveNewData() {
         try {
-            putDataToSp(sharedPreferences,typeAdapter.getCurrentType(), keyEditText.getText().toString(),
+            String saveType = typeAdapter.getCurrentType();
+            if (TextUtils.isEmpty(saveType)){
+                Toast.makeText(getContext(), "请选择您要存储的类型", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+            putDataToSp(sharedPreferences,saveType, keyEditText.getText().toString(),
                     valueEditText.getText().toString());
 
             if (onDataUpdateListener != null){
@@ -187,7 +185,7 @@ public class SPDetailDialog extends Dialog {
 
     }
 
-    OnDataUpdateListener onDataUpdateListener;
+    private OnDataUpdateListener onDataUpdateListener;
 
     public void setOnDataUpdateListener(OnDataUpdateListener onDataUpdateListener) {
         this.onDataUpdateListener = onDataUpdateListener;
@@ -202,7 +200,7 @@ public class SPDetailDialog extends Dialog {
         String type = TypeConst.getObjectType(obj);
         typeAdapter.setCurrentType(type);
 
-        currentType = lastType = type;
+        lastType = type;
     }
 
 
@@ -215,7 +213,7 @@ public class SPDetailDialog extends Dialog {
         public TypeAdapter(Context context){
             layoutInflater = LayoutInflater.from(context);
             defaultColor = context.getResources().getColor(R.color.color_373737);
-            selecColor = context.getResources().getColor(R.color.color_c91566);
+            selecColor = context.getResources().getColor(R.color.color_ec0313);
         }
 
 

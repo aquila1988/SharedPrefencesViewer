@@ -13,9 +13,6 @@ import com.aquia.sp.viewer.utils.CustomRecyclerView;
 
 import java.io.File;
 
-/**
- * Created by yulong_wang on 2017/11/9 17:40.
- */
 
 public class SPFileListActivity extends BaseActivity implements OnClickListener{
     private ImageView backImageView;

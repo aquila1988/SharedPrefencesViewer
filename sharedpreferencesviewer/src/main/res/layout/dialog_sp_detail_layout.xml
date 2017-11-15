@@ -82,23 +82,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="65dp"
+                    android:layout_width="@dimen/left_title_size"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|right"
                     android:text="类型:"
                     android:textColor="@color/color_373737"
-                    android:textSize="@dimen/text_size_16"
+                    android:textSize="@dimen/text_size_14"
                     android:textStyle="bold" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/dialog_sp_type_TextView"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text=""-->
-                    <!--android:paddingLeft="@dimen/dimen_size_10"-->
-                    <!--android:textColor="#b412a9"-->
-                    <!--android:textSize="@dimen/text_size_18" />-->
 
                 <com.aquia.sp.viewer.utils.CustomRecyclerView
                     android:id="@+id/dialog_sp_type_RecyclerView"
@@ -118,18 +109,18 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="65dp"
+                    android:layout_width="@dimen/left_title_size"
                     android:layout_height="match_parent"
                     android:gravity="right|center_vertical"
-                    android:text="Key值:"
+                    android:text="KEY:"
                     android:textColor="@color/color_373737"
-                    android:textSize="@dimen/text_size_16"
+                    android:textSize="@dimen/text_size_14"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/dialog_sp_key_EditText"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:gravity="center_vertical"
                     android:text=""
@@ -146,12 +137,12 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="65dp"
+                    android:layout_width="@dimen/left_title_size"
                     android:layout_height="match_parent"
                     android:gravity="right"
-                    android:text="Value值:"
+                    android:text="VALUE:"
                     android:textColor="@color/color_373737"
-                    android:textSize="@dimen/text_size_16"
+                    android:textSize="@dimen/text_size_14"
                     android:textStyle="bold" />
 
                 <EditText

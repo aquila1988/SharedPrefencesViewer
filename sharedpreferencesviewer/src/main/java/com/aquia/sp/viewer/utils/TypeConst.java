@@ -2,19 +2,16 @@ package com.aquia.sp.viewer.utils;
 
 import java.util.HashMap;
 
-/**
- * Created by yulong_wang on 2017/11/11 15:10.
- */
 
 public final class TypeConst {
     private TypeConst() {
     }
 
-    public static final String TYPE_INT = "int";
-    public static final String TYPE_LONG = "long";
-    public static final String TYPE_BOOLEAN = "boolean";
-    public static final String TYPE_STRING = "string";
-    public static final String TYPE_FLOAT = "float";
+    public static final String TYPE_INT = "Int";
+    public static final String TYPE_LONG = "Long";
+    public static final String TYPE_BOOLEAN = "Boolean";
+    public static final String TYPE_STRING = "String";
+    public static final String TYPE_FLOAT = "Float";
 
     private static HashMap<Integer, String> typeMap;
 

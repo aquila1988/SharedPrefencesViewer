@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import java.io.File;
 
-/**
- * Created by yulong_wang on 2017/11/11 14:49.
- */
 public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.NameListViewHolder> {
     private File[] files;
     private Activity activity;

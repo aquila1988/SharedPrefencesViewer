@@ -9,9 +9,6 @@ import android.widget.TextView;
 
 import com.aquia.sp.viewer.utils.CustomRecyclerView;
 
-/**
- * Created by yulong on 2017/11/9.
- */
 
 public class SPValueListActivity extends BaseActivity implements View.OnClickListener {
     static final String EXTRA_sp_name ="sp_name";

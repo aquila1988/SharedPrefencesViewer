@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.0.0"
+version = "1.0.1"
 
 android {
     compileSdkVersion 26
@@ -104,7 +104,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"
-        name = "SharedPreferenceViewer"                                                 // #CONFIG# project name in jcenter
+        name = "SharedPreferenceViewer"
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]

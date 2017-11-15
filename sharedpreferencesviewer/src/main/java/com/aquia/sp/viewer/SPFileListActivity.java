@@ -1,5 +1,8 @@
 package com.aquia.sp.viewer;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -18,6 +21,9 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
     private ImageView backImageView;
     private CustomRecyclerView customRecyclerView;
     private FileListAdapter adapter;
+    private static boolean isReleaseCanView;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +32,7 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
         customRecyclerView = findViewById(R.id.activity_sp_list_content_RecyclerView);
 
         backImageView.setOnClickListener(this);
+
         adapter = new FileListAdapter(this);
         adapter.setOnItemDeleteListener(onItemDeleteListener);
         customRecyclerView.setAdapter(adapter);
@@ -36,6 +43,14 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
 
     public void updateData(){
         adapter.setData(getSPFileList());
+
+        if (adapter.getItemCount() <= 0){
+            findViewById(R.id.activity_sp_empty_view).setVisibility(View.VISIBLE);
+            customRecyclerView.setVisibility(View.GONE);
+        }else{
+            findViewById(R.id.activity_sp_empty_view).setVisibility(View.GONE);
+            customRecyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -48,7 +63,7 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
         return null;
     }
 
-    OnDataUpdateListener onItemDeleteListener = new OnDataUpdateListener() {
+    private OnDataUpdateListener onItemDeleteListener = new OnDataUpdateListener() {
         @Override
         public void onDataUIUpdate() {
             updateData();
@@ -64,4 +79,28 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
     }
 
 
+    private static boolean isDebugMode(Context context){
+        try {
+            ApplicationInfo info = context.getApplicationInfo();
+            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /****
+     * 设置在release模式下是否开启SP的查看
+     * @param flag
+     */
+    public static void setIsReleaseCanView(boolean flag){
+        isReleaseCanView = flag;
+    }
+
+    public static void gotoSPFileListActivity(Context context){
+        if (isDebugMode(context) || isReleaseCanView){
+            Intent intent = new Intent(context, SPFileListActivity.class);
+            context.startActivity(intent);
+        }
+
+    }
 }

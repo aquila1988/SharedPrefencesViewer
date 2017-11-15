@@ -1,6 +1,5 @@
 package com.aquila.shared.preferences;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -52,8 +51,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == button){
-            Intent intent = new Intent(this, SPFileListActivity.class);
-            startActivity(intent);
+            SPFileListActivity.gotoSPFileListActivity(this);
+//            Intent intent = new Intent(this, SPFileListActivity.class);
+//            startActivity(intent);
         }
     }
 }

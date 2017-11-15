@@ -34,6 +34,23 @@
             />
     </RelativeLayout>
 
+    <FrameLayout
+        android:id="@+id/activity_sp_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:text="您的APP当前还没有SharedPreferences文件"
+            />
+
+    </FrameLayout>
 
     <com.aquia.sp.viewer.utils.CustomRecyclerView
         android:id="@+id/activity_sp_list_content_RecyclerView"

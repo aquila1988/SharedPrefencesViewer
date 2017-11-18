@@ -25,11 +25,22 @@
 
         <ImageView
             android:id="@+id/activity_value_add_ImageView"
-            android:layout_width="@dimen/title_height"
-            android:layout_height="@dimen/dimen_dp_50"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
             android:src="@mipmap/ic_add"
             android:scaleType="center"
             android:layout_alignParentRight="true"
+            android:background="@drawable/selector_item_bg"
+            />
+
+        <ImageView
+            android:id="@+id/activity_value_search_ImageView"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/home_ic_search"
+            android:scaleType="fitCenter"
+            android:padding="@dimen/dimen_size_5"
+            android:layout_toLeftOf="@id/activity_value_add_ImageView"
             android:background="@drawable/selector_item_bg"
             />
 

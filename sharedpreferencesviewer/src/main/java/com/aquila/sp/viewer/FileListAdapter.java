@@ -80,7 +80,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.NameLi
         return files.length;
     }
 
-    OnDataUpdateListener onItemDeleteListener;
+    private OnDataUpdateListener onItemDeleteListener;
 
     public void setOnItemDeleteListener(OnDataUpdateListener onItemDeleteListener) {
         this.onItemDeleteListener = onItemDeleteListener;

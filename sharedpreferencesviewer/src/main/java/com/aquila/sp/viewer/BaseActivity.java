@@ -1,7 +1,7 @@
 package com.aquila.sp.viewer;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 
 
-class BaseActivity extends Activity {
+class BaseActivity extends AppCompatActivity {
 }

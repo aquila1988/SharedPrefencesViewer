@@ -89,7 +89,7 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
      * 设置在release模式下是否开启SP的查看
      * @param flag
      */
-    public static void setIsReleaseCanView(boolean flag){
+    public static void setIsReleaseCanJump(boolean flag){
         isReleaseCanView = flag;
     }
 

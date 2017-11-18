@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -24,7 +23,7 @@ import com.aquia.sp.viewer.utils.TypeConst;
 
 public class SPDetailDialog extends Dialog {
 
-    public SPDetailDialog(@NonNull Context context, SharedPreferences sharedPreferences) {
+    public SPDetailDialog(Context context, SharedPreferences sharedPreferences) {
         super(context);
         this.sharedPreferences = sharedPreferences;
     }
@@ -89,7 +88,7 @@ public class SPDetailDialog extends Dialog {
                 if (!isCreate && !keyEditText.getText().toString().equals(lastKey)){
                     showKeyChangedDialog(CHANGE_TYPE_KEY);
                 }
-                else if (!isCreate &&!lastKey.equals(typeAdapter.getCurrentType())){
+                else if (!isCreate &&!lastType.equals(typeAdapter.getCurrentType())){
                     showKeyChangedDialog(CHANGE_TYPE_TYPE);
                 }else {
                     saveNewData();

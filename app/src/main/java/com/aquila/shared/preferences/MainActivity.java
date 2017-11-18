@@ -1,5 +1,6 @@
 package com.aquila.shared.preferences;
 
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,15 +12,15 @@ import com.aquia.sp.viewer.utils.CLog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button button ;
+    Button gotoSPButton;
     private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button = (Button) findViewById(R.id.main_jump_Button);
+        gotoSPButton = findViewById(R.id.main_jump_Button);
 
-        button.setOnClickListener(this);
+        gotoSPButton.setOnClickListener(this);
 
 
         sharedPreferences = getSharedPreferences("testDemo", MODE_PRIVATE);
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         SharedPreferences sp2 = getSharedPreferences("大萨达", MODE_PRIVATE);
         sp2.edit().putString("test122", "我的测试文件2").commit();
-
 
 
         CLog.debug("启动次数:"+sharedPreferences.getInt("startCount", 0) + "");
@@ -50,10 +50,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v == button){
+        if (v == gotoSPButton){
+            // 这个设置是在release下的APP也可以跳转过去
+            SPFileListActivity.setIsReleaseCanJump(true);
+            // 这里的this参数就是Activity自己，如果是在
             SPFileListActivity.gotoSPFileListActivity(this);
-//            Intent intent = new Intent(this, SPFileListActivity.class);
-//            startActivity(intent);
         }
     }
 }

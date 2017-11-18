@@ -1,4 +1,4 @@
-package com.aquia.sp.viewer;
+package com.aquila.sp.viewer;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,8 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aquia.sp.viewer.utils.CustomRecyclerView;
-import com.aquia.sp.viewer.utils.TypeConst;
+import com.aquila.sp.viewer.utils.CustomRecyclerView;
+import com.aquila.sp.viewer.utils.TypeConst;
 
 public class SPDetailDialog extends Dialog {
 

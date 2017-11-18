@@ -1,4 +1,4 @@
-package com.aquia.sp.viewer.utils;
+package com.aquila.sp.viewer.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
-import com.aquia.sp.viewer.R;
+import com.aquila.sp.viewer.R;
 
 
 public class CustomRecyclerView extends RecyclerView {

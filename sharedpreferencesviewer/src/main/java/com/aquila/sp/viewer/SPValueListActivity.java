@@ -1,4 +1,4 @@
-package com.aquia.sp.viewer;
+package com.aquila.sp.viewer;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.aquia.sp.viewer.utils.CustomRecyclerView;
+import com.aquila.sp.viewer.utils.CustomRecyclerView;
 
 
 public class SPValueListActivity extends BaseActivity implements View.OnClickListener {

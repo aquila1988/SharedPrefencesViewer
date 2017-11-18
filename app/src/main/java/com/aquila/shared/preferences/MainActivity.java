@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.aquia.sp.viewer.SPFileListActivity;
-import com.aquia.sp.viewer.utils.CLog;
+import com.aquila.sp.viewer.SPFileListActivity;
+import com.aquila.sp.viewer.utils.CLog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

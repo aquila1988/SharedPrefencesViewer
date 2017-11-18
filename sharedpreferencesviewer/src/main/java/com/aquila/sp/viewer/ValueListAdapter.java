@@ -1,4 +1,4 @@
-package com.aquia.sp.viewer;
+package com.aquila.sp.viewer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.aquia.sp.viewer.utils.TypeConst;
+import com.aquila.sp.viewer.utils.TypeConst;
 
 import java.util.ArrayList;
 import java.util.Map;

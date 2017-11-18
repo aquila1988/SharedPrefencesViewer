@@ -1,4 +1,4 @@
-package com.aquia.sp.viewer;
+package com.aquila.sp.viewer;
 
 import android.app.Activity;
 import android.app.AlertDialog;

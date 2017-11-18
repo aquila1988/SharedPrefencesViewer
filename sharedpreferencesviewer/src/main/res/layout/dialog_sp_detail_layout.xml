@@ -91,7 +91,7 @@
                     android:textStyle="bold" />
 
 
-                <com.aquia.sp.viewer.utils.CustomRecyclerView
+                <com.aquila.sp.viewer.utils.CustomRecyclerView
                     android:id="@+id/dialog_sp_type_RecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

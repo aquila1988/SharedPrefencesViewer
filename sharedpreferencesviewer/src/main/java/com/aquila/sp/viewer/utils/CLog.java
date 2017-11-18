@@ -1,4 +1,4 @@
-package com.aquia.sp.viewer.utils;
+package com.aquila.sp.viewer.utils;
 
 
 import android.text.TextUtils;

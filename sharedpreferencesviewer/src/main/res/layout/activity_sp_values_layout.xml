@@ -119,7 +119,7 @@
 
 
 
-    <com.aquia.sp.viewer.utils.CustomRecyclerView
+    <com.aquila.sp.viewer.utils.CustomRecyclerView
         android:id="@+id/activity_value_content_RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

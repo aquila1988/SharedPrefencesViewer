@@ -1,4 +1,4 @@
-package com.aquia.sp.viewer;
+package com.aquila.sp.viewer;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,18 +9,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
-import com.aquia.sp.viewer.utils.CustomRecyclerView;
+import com.aquila.sp.viewer.presenter.BaseFileContract;
+import com.aquila.sp.viewer.presenter.SPFilePresenter;
+import com.aquila.sp.viewer.utils.CustomRecyclerView;
 
-import java.io.File;
 
-
-public class SPFileListActivity extends BaseActivity implements OnClickListener{
+public class SPFileListActivity extends BaseActivity implements BaseFileContract.view, OnClickListener{
     private ImageView backImageView;
     private CustomRecyclerView customRecyclerView;
     private FileListAdapter adapter;
     private static boolean isReleaseCanView;
 
-
+    BaseFileContract.Presenter presenter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +29,9 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
         customRecyclerView = findViewById(R.id.activity_sp_list_content_RecyclerView);
 
         backImageView.setOnClickListener(this);
+
+        presenter = new SPFilePresenter(this);
+
 
         adapter = new FileListAdapter(this);
         adapter.setOnItemDeleteListener(onItemDeleteListener);
@@ -39,7 +42,7 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
 
 
     public void updateData(){
-        adapter.setData(getSPFileList());
+        adapter.setData(presenter.getSPFileList());
 
         if (adapter.getItemCount() <= 0){
             findViewById(R.id.activity_sp_empty_view).setVisibility(View.VISIBLE);
@@ -52,13 +55,6 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
 
 
 
-    private File[] getSPFileList() {
-        File root = new File("/data/data/"+getPackageName()+"/shared_prefs");
-        if (root.isDirectory()) {
-            return root.listFiles();
-        }
-        return null;
-    }
 
     private OnDataUpdateListener onItemDeleteListener = new OnDataUpdateListener() {
         @Override
@@ -99,5 +95,10 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
             context.startActivity(intent);
         }
 
+    }
+
+    @Override
+    public String getAPPPackageName() {
+        return getPackageName();
     }
 }

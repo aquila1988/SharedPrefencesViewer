@@ -29,7 +29,6 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
 
         backImageView.setOnClickListener(this);
 
-
         adapter = new FileListAdapter(this);
         adapter.setOnItemDeleteListener(onItemDeleteListener);
         customRecyclerView.setAdapter(adapter);

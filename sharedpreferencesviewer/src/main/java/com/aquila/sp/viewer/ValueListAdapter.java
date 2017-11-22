@@ -118,9 +118,9 @@ public class ValueListAdapter extends RecyclerView.Adapter<ValueListAdapter.SPVa
         public TextView typeTextView;
         public SPValueViewHolder(View itemView) {
             super(itemView);
-            keyTextView = itemView.findViewById(R.id.adapter_sp_key_TextView);
-            valueTextView = itemView.findViewById(R.id.adapter_sp_value_TextView);
-            typeTextView = itemView.findViewById(R.id.adapter_sp_type_TextView);
+            keyTextView = (TextView) itemView.findViewById(R.id.adapter_sp_key_TextView);
+            valueTextView = (TextView) itemView.findViewById(R.id.adapter_sp_value_TextView);
+            typeTextView = (TextView) itemView.findViewById(R.id.adapter_sp_type_TextView);
         }
     }
 }

@@ -13,8 +13,8 @@ buildscript {
     repositories {
         jcenter()
         maven {
-            url 'https://maven.google.com/'
-            name 'Google'
+            url 'https://bintray.com/aquila1988/maven'
+            name 'aquila1988'
         }
     }
 }

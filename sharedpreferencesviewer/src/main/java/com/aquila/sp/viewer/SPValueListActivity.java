@@ -22,11 +22,11 @@ public class SPValueListActivity extends BaseActivity implements View.OnClickLis
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sp_values_layout);
-        backImageView = findViewById(R.id.activity_value_back_ImageView);
-        titleTextView = findViewById(R.id.activity_value_title_name_TextView);
-        addImageView = findViewById(R.id.activity_value_add_ImageView);
+        backImageView = (ImageView) findViewById(R.id.activity_value_back_ImageView);
+        titleTextView = (TextView) findViewById(R.id.activity_value_title_name_TextView);
+        addImageView = (ImageView) findViewById(R.id.activity_value_add_ImageView);
 
-        customRecyclerView = findViewById(R.id.activity_value_content_RecyclerView);
+        customRecyclerView = (CustomRecyclerView) findViewById(R.id.activity_value_content_RecyclerView);
 
         backImageView.setOnClickListener(this);
         addImageView.setOnClickListener(this);

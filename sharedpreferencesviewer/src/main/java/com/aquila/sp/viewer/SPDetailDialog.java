@@ -67,14 +67,14 @@ public class SPDetailDialog extends Dialog {
     }
 
     private void initializeViewFromXML() {
-        titleTextView = findViewById(R.id.dialog_sp_title_TextView);
-        TypeRecyclerView = findViewById(R.id.dialog_sp_type_RecyclerView);
+        titleTextView = (TextView) findViewById(R.id.dialog_sp_title_TextView);
+        TypeRecyclerView = (CustomRecyclerView) findViewById(R.id.dialog_sp_type_RecyclerView);
 
-        keyEditText = findViewById(R.id.dialog_sp_key_EditText);
-        valueEditText = findViewById(R.id.dialog_sp_value_EditText);
+        keyEditText = (EditText) findViewById(R.id.dialog_sp_key_EditText);
+        valueEditText = (EditText) findViewById(R.id.dialog_sp_value_EditText);
 
-        okButton = findViewById(R.id.dialog_sp_ok_Button);
-        cancelButton = findViewById(R.id.dialog_sp_cancel_button);
+        okButton = (Button) findViewById(R.id.dialog_sp_ok_Button);
+        cancelButton = (Button) findViewById(R.id.dialog_sp_cancel_button);
     }
 
     public void setIsCreate(boolean create) {
@@ -261,7 +261,7 @@ public class SPDetailDialog extends Dialog {
         public TextView contentTextView;
         public TypeViewHolder(View itemView) {
             super(itemView);
-            contentTextView = itemView.findViewById(R.id.item_type_content_TextView);
+            contentTextView = (TextView) itemView.findViewById(R.id.item_type_content_TextView);
         }
 
 

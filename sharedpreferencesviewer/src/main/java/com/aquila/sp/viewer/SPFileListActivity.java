@@ -24,8 +24,8 @@ public class SPFileListActivity extends BaseActivity implements OnClickListener{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sp_list_layout);
-        backImageView = findViewById(R.id.activity_sp_list_back_ImageView);
-        customRecyclerView = findViewById(R.id.activity_sp_list_content_RecyclerView);
+        backImageView = (ImageView) findViewById(R.id.activity_sp_list_back_ImageView);
+        customRecyclerView = (CustomRecyclerView) findViewById(R.id.activity_sp_list_content_RecyclerView);
 
         backImageView.setOnClickListener(this);
 

@@ -90,7 +90,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.NameLi
         public TextView fileNameTextView;
         public NameListViewHolder(View itemView) {
             super(itemView);
-            fileNameTextView = itemView.findViewById(R.id.adapter_list_sp_name_TextView);
+            fileNameTextView = (TextView) itemView.findViewById(R.id.adapter_list_sp_name_TextView);
         }
     }
 }

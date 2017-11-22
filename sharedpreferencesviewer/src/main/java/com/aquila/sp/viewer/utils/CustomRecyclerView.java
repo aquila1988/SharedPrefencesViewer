@@ -61,7 +61,7 @@ public class CustomRecyclerView extends RecyclerView {
                 layoutManager = new GridLayoutManager(getContext(),spanCount, GridLayoutManager.HORIZONTAL, false);
                 break;
             case 1:
-            default: //默认的就是列表模式
+            default:
                 layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                 break;
         }

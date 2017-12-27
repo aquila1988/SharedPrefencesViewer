@@ -3,8 +3,6 @@ package com.aquila.sp.viewer.utils;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -19,10 +17,9 @@ public final class CLog {
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     public static final String NULL_TIPS = "Log with null object";
 
-    private static final String DEFAULT_MESSAGE = "execute";
     private static final String PARAM = "Param";
     private static final String NULL = "null";
-    private static final String TAG_DEFAULT = "CLog";
+    private static final String TAG_DEFAULT = "CLog_";
     private static final String SUFFIX = ".java";
 
     public static final int JSON_INDENT = 4;
@@ -42,118 +39,50 @@ public final class CLog {
     private static final int STACK_TRACE_INDEX_4 = 4;
     private static final int MAX_LENGTH = 4000;
 
-    private static String mGlobalTag;
-    private static boolean mIsGlobalTagEmpty = true;
     private static boolean IS_SHOW_LOG = true;
 
 
-
-    public static void init(boolean isShowLog) {
+    public static void setShowLog(boolean isShowLog) {
         IS_SHOW_LOG = isShowLog;
     }
 
-    public static void init(boolean isShowLog, String tag) {
-        IS_SHOW_LOG = isShowLog;
-        mGlobalTag = tag;
-        mIsGlobalTagEmpty = TextUtils.isEmpty(mGlobalTag);
+
+    public static void v(Object... msg) {
+        printLog(V, msg);
     }
 
-    public static void v() {
-        printLog(V, null, DEFAULT_MESSAGE);
+    public static void d(Object... msg) {
+        printLog(D, msg);
     }
 
-    public static void v(Object msg) {
-        printLog(V, null, msg);
+    public static void i(Object... msg) {
+        printLog(I, msg);
     }
 
-    public static void v(String tag, Object... objects) {
-        printLog(V, tag, objects);
+    public static void w(Object... msg) {
+        printLog(W, msg);
     }
 
-    public static void d() {
-        printLog(D, null, DEFAULT_MESSAGE);
-    }
-
-    public static void d(Object msg) {
-        printLog(D, null, msg);
-    }
-
-    public static void d(String tag, Object... objects) {
-        printLog(D, tag, objects);
-    }
-
-    public static void i() {
-        printLog(I, null, DEFAULT_MESSAGE);
-    }
-
-    public static void i(Object msg) {
-        printLog(I, null, msg);
-    }
-
-    public static void i(String tag, Object... objects) {
-        printLog(I, tag, objects);
-    }
-
-    public static void w() {
-        printLog(W, null, DEFAULT_MESSAGE);
-    }
-
-    public static void w(Object msg) {
-        printLog(W, null, msg);
-    }
-
-    public static void w(String tag, Object... objects) {
-        printLog(W, tag, objects);
-    }
-
-    public static void e() {
-        printLog(E, null, DEFAULT_MESSAGE);
-    }
-
-    public static void e(Object msg) {
-        printLog(E, null, msg);
-    }
-
-    public static void e(String tag, Object... objects) {
-        printLog(E, tag, objects);
-    }
-
-    public static void a() {
-        printLog(A, null, DEFAULT_MESSAGE);
-    }
-
-    public static void a(Object msg) {
-        printLog(A, null, msg);
-    }
-
-    public static void a(String tag, Object... objects) {
-        printLog(A, tag, objects);
-    }
-
-    public static void json(String jsonFormat) {
-        printLog(JSON, null, jsonFormat);
-    }
-
-    public static void json(String tag, String jsonFormat) {
-        printLog(JSON, tag, jsonFormat);
+    public static void e(Object... msg) {
+        printLog(E, msg);
     }
 
     public static void syso(String text) {
-        printLog(SYSO, null, text);
+        printLog(SYSO, text);
     }
 
-
-    public static void debug() {
-        printDebug(null, DEFAULT_MESSAGE);
+    public static void a(Object... msg) {
+        printLog(A, msg);
     }
 
-    public static void debug(Object msg) {
-        printDebug(null, msg);
+    public static void debug(Object... msg) {
+        printDebug(msg);
     }
 
-    public static void debug(String tag, Object... objects) {
-        printDebug(tag, objects);
+    public static void json(String jsonFormat) {
+        printLog(JSON, jsonFormat);
     }
+
 
     public static void trace() {
         printStackTrace();
@@ -181,20 +110,21 @@ public final class CLog {
             }
             sb.append(trace).append("\n");
         }
-        String[] contents = wrapperContent(STACK_TRACE_INDEX_4, null, sb.toString());
+
+
+        String[] contents = wrapperContent(STACK_TRACE_INDEX_4, sb.toString());
         String tag = contents[0];
         String msg = contents[1];
         String headString = contents[2];
         printDefault(D, tag, headString + msg);
     }
 
-    private static void printLog(int type, String tagStr, Object... objects) {
-
+    private static void printLog(int type, Object... objects) {
         if (!IS_SHOW_LOG) {
             return;
         }
 
-        String[] contents = wrapperContent(STACK_TRACE_INDEX_5, tagStr, objects);
+        String[] contents = wrapperContent(STACK_TRACE_INDEX_5, objects);
         String tag = contents[0];
         String msg = contents[1];
         String headString = contents[2];
@@ -210,30 +140,43 @@ public final class CLog {
                 printDefault(type, tag, headString + msg);
                 break;
             case JSON:
-                printJson(tag, msg, headString);
+                printJson(tag, headString, msg);
                 break;
         }
     }
 
-    private static final boolean isOpenSPLog = true;
-    public static void i(int superLevel, Object... objects){
-        if (!IS_SHOW_LOG || !isOpenSPLog){
+
+    public static void debugCall(int superLevel, Object... objects) {
+        if (!IS_SHOW_LOG) {
             return;
         }
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         int index = 3 + superLevel;
-        if (index >= stackTrace.length){
-            index = stackTrace.length -1;
+        if (index >= stackTrace.length) {
+            index = stackTrace.length - 1;
+        } else if (index < 0) {
+            index = 0;
         }
         StackTraceElement targetElement = stackTrace[index];
         String headString = getHeadString(targetElement);
         String msg = (objects == null) ? NULL_TIPS : getObjectsString(objects);
-        printDefault(I, getTag("SharedPreferencesSingleton", targetElement.getClassName()), headString + msg);
+        printDefault(D, TAG_DEFAULT + targetElement.getClassName(), headString + msg);
     }
 
 
-    private static void printDebug(String tagStr, Object... objects) {
-        String[] contents = wrapperContent(STACK_TRACE_INDEX_5, tagStr, objects);
+    public static String getCallMethodByLevel(int superLevel) {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        int index = 3 + superLevel;
+        if (index >= stackTrace.length) {
+            index = stackTrace.length - 1;
+        }
+        StackTraceElement targetElement = stackTrace[index];
+        String headString = getHeadString(targetElement);
+        return headString;
+    }
+
+    private static void printDebug(Object... objects) {
+        String[] contents = wrapperContent(STACK_TRACE_INDEX_5, objects);
         String tag = contents[0];
         String msg = contents[1];
         String headString = contents[2];
@@ -241,7 +184,7 @@ public final class CLog {
     }
 
 
-    private static String getHeadString(StackTraceElement targetElement){
+    private static String getHeadString(StackTraceElement targetElement) {
         String className = getClassName(targetElement.getClassName());
 
         String methodName = targetElement.getMethodName();
@@ -250,7 +193,7 @@ public final class CLog {
         if (lineNumber < 0) {
             lineNumber = 0;
         }
-        String headString = " [(" + className + ":" + lineNumber + ")#" + methodName +"()] ";
+        String headString = " [(" + className + ":" + lineNumber + ")#" + methodName + "()] ";
         // className + ":" + lineNumber + "." + methodName +"()";
         return headString;
     }
@@ -262,7 +205,7 @@ public final class CLog {
         }
 
         if (className.contains("\\$")) {
-            className = className.split("\\$")[0] ;
+            className = className.split("\\$")[0];
         }
         return className;
     }
@@ -276,17 +219,17 @@ public final class CLog {
      * @return
      */
     public static String getStackTraceFloorName(int floor) {
-        if (floor < 1){
+        if (floor < 1) {
             floor = 1;
         }
 
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         StringBuilder sb = new StringBuilder();
         sb.append("【");
-        for (int i = 0, stackTraceLength = stackTrace.length; i < floor && i <= stackTraceLength - 4; i++){
+        for (int i = 0, stackTraceLength = stackTrace.length; i < floor && i <= stackTraceLength - 4; i++) {
             StackTraceElement targetElement = stackTrace[4 + i];
             sb.append(getHeadString(targetElement));
-            if (i < floor-1){
+            if (i < floor - 1) {
                 sb.append("-->");
             }
         }
@@ -296,37 +239,28 @@ public final class CLog {
     }
 
 
-
-    private static String[] wrapperContent(int stackTraceIndex, String tagStr, Object... objects) {
+    private static String[] wrapperContent(int stackTraceIndex, Object... objects) {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 
         StackTraceElement targetElement = stackTrace[stackTraceIndex];
-        String tag = getTag(tagStr, getClassName(targetElement.getClassName()));
+        String tag = TAG_DEFAULT + getClassName(targetElement.getClassName());
 
         String msg = (objects == null) ? NULL_TIPS : getObjectsString(objects);
         String headString = getHeadString(targetElement); //"[(" + className + ":" + lineNumber + ")#" + methodName +"()] ";
         return new String[]{tag, msg, headString};
     }
 
-    @NonNull
-    private static String getTag(String tagStr, String className) {
-        String tag = (tagStr == null ? className : tagStr);
-
-        if (mIsGlobalTagEmpty && TextUtils.isEmpty(tag)) {
-            tag = TAG_DEFAULT;
-        } else if (!mIsGlobalTagEmpty) {
-            tag = mGlobalTag;
-        }
-
-        //给tag加上default标记前缀，便于在logcat筛选查找
-        if (!tag.startsWith(TAG_DEFAULT)){
-            tag = TAG_DEFAULT +"_" + tag;
-        }
-        return tag;
-    }
+//    @NonNull
+//    private static String getTag(String tagStr, String className) {
+//        String tag = (tagStr == null ? className : tagStr);
+//        //给tag加上default标记前缀，便于在logcat筛选查找
+//        if (!tag.startsWith(TAG_DEFAULT)){
+//            tag = TAG_DEFAULT +"_" + tag;
+//        }
+//        return tag;
+//    }
 
     private static String getObjectsString(Object... objects) {
-
         if (objects.length > 1) {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("\n");
@@ -345,9 +279,6 @@ public final class CLog {
         }
     }
 
-    public static boolean isEmpty(String line) {
-        return TextUtils.isEmpty(line) || line.equals("\n") || line.equals("\t") || TextUtils.isEmpty(line.trim());
-    }
 
     public static void printLine(String tag, boolean isTop) {
         if (isTop) {
@@ -358,10 +289,8 @@ public final class CLog {
     }
 
 
-    public static void printJson(String tag, String msg, String headString) {
-
+    public static void printJson(String tag, String headString, String msg) {
         String message;
-
         try {
             if (msg.startsWith("{")) {
                 JSONObject jsonObject = new JSONObject(msg);
@@ -386,9 +315,8 @@ public final class CLog {
     }
 
 
-
     public static void printDefault(int type, String tag, String msg) {
-        if (!IS_SHOW_LOG){
+        if (!IS_SHOW_LOG) {
             return;
         }
         int index = 0;
